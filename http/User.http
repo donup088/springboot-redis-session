@@ -1,0 +1,8 @@
+POST {{apiUrl}}/signup
+Content-Type: application/json;charset=UTF-8
+
+{
+  "email": "test@test.com",
+  "password": "1234",
+  "name": "123"
+}
