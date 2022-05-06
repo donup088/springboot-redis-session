@@ -2,7 +2,22 @@ POST {{apiUrl}}/signup
 Content-Type: application/json;charset=UTF-8
 
 {
-  "email": "test@test.com",
+  "email": "test2@test.com",
   "password": "1234",
   "name": "123"
 }
+
+###
+POST {{apiUrl}}/login
+Content-Type: application/json;charset=UTF-8
+
+{
+  "email": "test@test.com",
+  "password": "1234"
+}
+
+###
+GET {{apiUrl}}/me
+
+###
+POST {{apiUrl}}/logout

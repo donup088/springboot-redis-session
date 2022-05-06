@@ -13,17 +13,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors()
-                .and()
+       http
+                .csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
-                .httpBasic().disable()
-                .formLogin().disable()
-                .rememberMe().disable()
-                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/signup","/api/login").permitAll()
-                .anyRequest().authenticated();
+                .antMatchers("/api/signup", "/api/login").permitAll();
     }
 
     @Bean
