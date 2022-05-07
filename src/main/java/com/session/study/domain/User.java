@@ -7,8 +7,8 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Builder
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor
+@AllArgsConstructor
 public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,5 +20,4 @@ public class User extends BaseTimeEntity {
 
     @Column(nullable = false)
     private String name;
-
 }

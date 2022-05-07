@@ -3,7 +3,6 @@ package com.session.study.service;
 import com.session.study.domain.User;
 import com.session.study.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +18,9 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User login(User loginUser, PasswordEncoder passwordEncoder) {
+    public User login(User loginUser) {
         User findUser = userRepository.findByEmail(loginUser.getEmail()).orElseThrow(EntityNotFoundException::new);
-        if (!passwordEncoder.matches(loginUser.getPassword(), findUser.getPassword())) {
+        if (!findUser.getPassword().equals(loginUser.getPassword())) {
             throw new IllegalArgumentException("패스워드가 잘못되었습니다.");
         }
         return findUser;

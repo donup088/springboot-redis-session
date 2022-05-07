@@ -1,4 +1,4 @@
-POST {{apiUrl}}/signup
+POST http://localhost:8081/api/signup
 Content-Type: application/json;charset=UTF-8
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json;charset=UTF-8
 }
 
 ###
-POST {{apiUrl}}/login
+POST http://localhost:8081/api/login
 Content-Type: application/json;charset=UTF-8
 
 {
@@ -20,4 +20,7 @@ Content-Type: application/json;charset=UTF-8
 GET {{apiUrl}}/me
 
 ###
-POST {{apiUrl}}/logout
+GET {{apiUrl}}/logout
+
+###
+GET {{apiUrl}}/ok

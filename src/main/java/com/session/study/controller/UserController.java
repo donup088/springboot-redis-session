@@ -6,7 +6,7 @@ import com.session.study.dto.UserLoginRequestDto;
 import com.session.study.dto.UserSignupRequestDto;
 import com.session.study.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -14,21 +14,23 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api")
+@Slf4j
 public class UserController {
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
     private final HttpSession httpSession;
     private final static String SESSION_KEY = "USER_ID";
 
     @PostMapping("/signup")
     public void signup(@RequestBody UserSignupRequestDto userSignupRequestDto) {
-        userService.signup(userSignupRequestDto.toEntity(passwordEncoder));
+        userService.signup(userSignupRequestDto.toEntity());
     }
 
     @PostMapping("/login")
-    public void login(@RequestBody UserLoginRequestDto userLoginRequestDto) {
-        User loginUser = userService.login(userLoginRequestDto.toEntity(), passwordEncoder);
+    public void login(HttpSession httpSession, @RequestBody UserLoginRequestDto userLoginRequestDto) {
+        User loginUser = userService.login(userLoginRequestDto.toEntity());
         httpSession.setAttribute(SESSION_KEY, loginUser.getId());
+        httpSession.setAttribute("name", "test");
+        log.info("httpSession 아이디: " + httpSession.getId());
     }
 
     @GetMapping("/me")
@@ -38,8 +40,13 @@ public class UserController {
         return UserGetMeResponseDto.build(user);
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public void logout() {
         httpSession.removeAttribute(SESSION_KEY);
+    }
+
+    @GetMapping("/ok")
+    public String ok() {
+        return "ok";
     }
 }
